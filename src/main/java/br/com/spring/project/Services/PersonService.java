@@ -22,7 +22,7 @@ public class PersonService {
     }
 
     public List<Person> findAll() {
-        logger.info("Finding person");
+        logger.info("Listing all persons");
         List<Person> personList = new ArrayList<>();
 
         for(int i = 0; i < 8 ; i++) {
@@ -31,6 +31,22 @@ public class PersonService {
         }
 
         return personList;
+    }
+
+    public Person createPerson(Person person) {
+        logger.info("Creating person");
+        
+        return person;
+    }
+
+    public Person updatePerson(Person person) {
+        logger.info("Updating person");
+        
+        return person;
+    }
+
+    public void deletePerson(String id) {
+        logger.info("Deleting person");
     }
 
     private Person mockNewPerson(int index) {
