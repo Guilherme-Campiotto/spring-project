@@ -1,4 +1,4 @@
-package br.com.spring.project.Service;
+package br.com.spring.project.Services;
 
 import java.util.Objects;
 

@@ -3,7 +3,7 @@ package br.com.spring.project.Controllers;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.spring.project.Exceptions.UnsupportedMathOperationException;
-import br.com.spring.project.Service.MathService;
+import br.com.spring.project.Services.MathService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
