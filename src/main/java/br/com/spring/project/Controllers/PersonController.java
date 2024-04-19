@@ -49,6 +49,6 @@ public class PersonController {
 
     @DeleteMapping(value= "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public void deletePerson(@PathVariable( "id") String id) {
-
+        personService.deletePerson(id);
     }
 }
