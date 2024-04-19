@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,7 +49,8 @@ public class PersonController {
     }
 
     @DeleteMapping(value= "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public void deletePerson(@PathVariable( "id") String id) {
+    public ResponseEntity<?> deletePerson(@PathVariable( "id") String id) {
         personService.deletePerson(id);
+        return ResponseEntity.noContent().build();
     }
 }
