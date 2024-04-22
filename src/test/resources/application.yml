@@ -1,8 +1,6 @@
 spring:
-    application:
-        name: spring-project
-    datasource:
-        driver-class-name: org.h2.Driver
-        username: sa
-        url: jdbc:h2:~/testdb;DB_CLOSE_ON_EXIT=false
-        password:
+  datasource:
+    url: jdbc:h2:~/testdb;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver

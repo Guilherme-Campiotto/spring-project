@@ -18,7 +18,7 @@ public class PersonRepositoryTest {
 
     @Test
     void testGivenPersonObjectWhenSavedThenReturnSavedPerson() {
-        Person person = new Person("Guilherme", "Campiotto", "Carapicuiba", "M"); //Mockito.mock(Person.class);
+        Person person = new Person("Guilherme", "Campiotto", "Carapicuiba", "M", "g_camps@email.com"); //Mockito.mock(Person.class);
     
         Person savedPerson = repository.save(person);
         Assertions.assertNotNull(savedPerson);
@@ -27,8 +27,8 @@ public class PersonRepositoryTest {
 
     @Test
     void testGivenPersonListWhenFindAllThenReturnSavedPerson() {
-        Person personOne = new Person("Guilherme", "Campiotto", "Carapicuiba", "M"); //Mockito.mock(Person.class);
-        Person personTwo = new Person("Fulano", "Silva", "Carapicuiba", "M"); //Mockito.mock(Person.class);
+        Person personOne = new Person("Guilherme", "Campiotto", "Carapicuiba", "M", "g_camps@email.com");
+        Person personTwo = new Person("Fulano", "Silva", "Carapicuiba", "M", "g_camps@email.com");
 
 
         repository.save(personOne);
@@ -40,14 +40,45 @@ public class PersonRepositoryTest {
     }
 
     @Test
-    void testGivenPersonObjectWhenFindByIdThenReturnPersonObject() {
-        Person person = new Person("Guilherme", "Campiotto", "Carapicuiba", "M"); //Mockito.mock(Person.class);
+    void testGivenPersonObjectWhenFindByIdThenReturnPerson() {
+        Person person = new Person("Guilherme", "Campiotto", "Carapicuiba", "M", "g_camps@email.com");
 
         repository.save(person);
 
-       Person personSaved = repository.findById(person.getId()).get();
+        Person personSaved = repository.findById(person.getId()).get();
 
         Assertions.assertNotNull(personSaved);
         Assertions.assertEquals(person.getId(), personSaved.getId());
+    }
+
+    @Test
+    void testGivenPersonObjectWhenFindByEmailThenReturnPerson() {
+        Person person = new Person("Guilherme", "Campiotto", "Carapicuiba", "M", "g_camps@email.com"); //Mockito.mock(Person.class);
+
+        repository.save(person);
+
+        Person personSaved = repository.findByEmail(person.getEmail()).get();
+
+        Assertions.assertNotNull(personSaved);
+        Assertions.assertEquals(person.getEmail(), personSaved.getEmail());
+    }
+
+    @Test
+    void testGivenPersonObjectWhenUpdateThenReturnUpdatedPerson() {
+        Person person = new Person("Guilherme", "Campiotto", "Carapicuiba", "M", "g_camps@email.com");
+
+        repository.save(person);
+
+        Person personSaved = repository.findById(person.getId()).get();
+
+        personSaved.setFirstName("William");
+        personSaved.setEmail("g_camps2@email.com");
+        repository.save(personSaved);
+
+        Person personUpdated = repository.findById(person.getId()).get();
+
+        Assertions.assertNotNull(personUpdated);
+        Assertions.assertEquals("William", personUpdated.getFirstName());
+        Assertions.assertEquals("g_camps2@email.com", personUpdated.getEmail());
     }
 }

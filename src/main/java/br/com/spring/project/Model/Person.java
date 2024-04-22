@@ -38,10 +38,14 @@ public class Person implements Serializable {
     @Column(nullable = false, length = 100)
     private String gender;
 
-    public Person(String firstName, String lastName, String address, String gender) {
+    @Column(nullable = false, length = 100)
+    private String email;
+
+    public Person(String firstName, String lastName, String address, String gender, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.gender = gender;
+        this.email = email;
     }
 }
