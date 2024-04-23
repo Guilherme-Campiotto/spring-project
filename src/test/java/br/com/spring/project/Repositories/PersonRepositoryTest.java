@@ -1,10 +1,10 @@
 package br.com.spring.project.Repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
@@ -80,5 +80,30 @@ public class PersonRepositoryTest {
         Assertions.assertNotNull(personUpdated);
         Assertions.assertEquals("William", personUpdated.getFirstName());
         Assertions.assertEquals("g_camps2@email.com", personUpdated.getEmail());
+    }
+    
+    @Test
+    void testGivenPersonObjectWhenDeleteThenRemovePerson() {
+        Person person = new Person("Guilherme", "Campiotto", "Carapicuiba", "M", "g_camps@email.com");
+
+        repository.save(person);
+
+        repository.deleteById(person.getId());
+
+        Optional<Person> personOptional = repository.findById(person.getId());
+
+        Assertions.assertTrue(personOptional.isEmpty());
+    }
+
+    @Test
+    void testGivenPersonObjectWhenFindByNameThenReturnPerson() {
+        Person person = new Person("Guilherme", "Campiotto", "Carapicuiba", "M", "g_camps@email.com");
+
+        repository.save(person);
+
+        Person personSaved = repository.findPersonByName(person.getFirstName(), person.getLastName());
+
+        Assertions.assertNotNull(personSaved);
+        Assertions.assertEquals(person.getId(), personSaved.getId());
     }
 }

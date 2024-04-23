@@ -16,7 +16,6 @@ import br.com.spring.project.Repositories.PersonRepository;
 
 @Service
 public class PersonService {
-    private final AtomicLong counter = new AtomicLong();
     private Logger logger = Logger.getLogger(PersonService.class.getName());
 
     @Autowired
