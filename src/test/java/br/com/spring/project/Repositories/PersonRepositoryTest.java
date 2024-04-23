@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -16,10 +17,29 @@ public class PersonRepositoryTest {
     @Autowired
     PersonRepository repository;
 
+    private Person person;
+    private Person personTwo;
+
+    @BeforeEach
+    public void setup() {
+        person = new Person(
+            "Guilherme", 
+             "Campiotto", 
+              "Carapicuiba", 
+               "M", 
+                "g_camps@email.com");
+        personTwo = new Person(
+            "Fulano",
+             "Silva",
+              "Carapicuiba",
+               "M",
+                "g_camps@email.com");
+
+    }
+
+
     @Test
-    void testGivenPersonObjectWhenSavedThenReturnSavedPerson() {
-        Person person = new Person("Guilherme", "Campiotto", "Carapicuiba", "M", "g_camps@email.com"); //Mockito.mock(Person.class);
-    
+    void testGivenPersonObjectWhenSavedThenReturnSavedPerson() {    
         Person savedPerson = repository.save(person);
         Assertions.assertNotNull(savedPerson);
         Assertions.assertTrue(savedPerson.getId() > 0);
@@ -27,11 +47,7 @@ public class PersonRepositoryTest {
 
     @Test
     void testGivenPersonListWhenFindAllThenReturnSavedPerson() {
-        Person personOne = new Person("Guilherme", "Campiotto", "Carapicuiba", "M", "g_camps@email.com");
-        Person personTwo = new Person("Fulano", "Silva", "Carapicuiba", "M", "g_camps@email.com");
-
-
-        repository.save(personOne);
+        repository.save(person);
         repository.save(personTwo);
 
         List<Person> personList = repository.findAll();
@@ -41,7 +57,6 @@ public class PersonRepositoryTest {
 
     @Test
     void testGivenPersonObjectWhenFindByIdThenReturnPerson() {
-        Person person = new Person("Guilherme", "Campiotto", "Carapicuiba", "M", "g_camps@email.com");
 
         repository.save(person);
 
@@ -53,8 +68,6 @@ public class PersonRepositoryTest {
 
     @Test
     void testGivenPersonObjectWhenFindByEmailThenReturnPerson() {
-        Person person = new Person("Guilherme", "Campiotto", "Carapicuiba", "M", "g_camps@email.com"); //Mockito.mock(Person.class);
-
         repository.save(person);
 
         Person personSaved = repository.findByEmail(person.getEmail()).get();
@@ -65,8 +78,6 @@ public class PersonRepositoryTest {
 
     @Test
     void testGivenPersonObjectWhenUpdateThenReturnUpdatedPerson() {
-        Person person = new Person("Guilherme", "Campiotto", "Carapicuiba", "M", "g_camps@email.com");
-
         repository.save(person);
 
         Person personSaved = repository.findById(person.getId()).get();
@@ -84,8 +95,6 @@ public class PersonRepositoryTest {
     
     @Test
     void testGivenPersonObjectWhenDeleteThenRemovePerson() {
-        Person person = new Person("Guilherme", "Campiotto", "Carapicuiba", "M", "g_camps@email.com");
-
         repository.save(person);
 
         repository.deleteById(person.getId());
@@ -97,8 +106,6 @@ public class PersonRepositoryTest {
 
     @Test
     void testGivenPersonObjectWhenFindByNameThenReturnPerson() {
-        Person person = new Person("Guilherme", "Campiotto", "Carapicuiba", "M", "g_camps@email.com");
-
         repository.save(person);
 
         Person personSaved = repository.findPersonByName(person.getFirstName(), person.getLastName());
