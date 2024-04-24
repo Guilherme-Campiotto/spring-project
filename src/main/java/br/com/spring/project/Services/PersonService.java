@@ -1,9 +1,8 @@
 package br.com.spring.project.Services;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +37,12 @@ public class PersonService {
 
     public Person createPerson(Person person) {
         logger.info("Creating person");
+
+        Optional<Person> personSaved = personRepository.findByEmail(person.getEmail());
+
+        if(Objects.nonNull(personSaved)) {
+            throw new ResourceNotFoundException("This email is already in use: " + person.getEmail());
+        }
         
         return personRepository.save(person);
     }

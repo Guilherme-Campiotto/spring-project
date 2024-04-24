@@ -37,7 +37,6 @@ public class PersonRepositoryTest {
 
     }
 
-
     @Test
     void testGivenPersonObjectWhenSavedThenReturnSavedPerson() {    
         Person savedPerson = repository.save(person);
